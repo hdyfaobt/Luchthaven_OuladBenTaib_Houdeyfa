@@ -44,10 +44,10 @@ public abstract class Persoon {
         this.adres = adres;
     }
 
-
+//toon details
     public abstract void toonDetails();
 
-
+//override
     @Override
     public String toString() {
         return "Naam: " + naam + ", Leeftijd: " + leeftijd + ", Adres: " + adres.toString();

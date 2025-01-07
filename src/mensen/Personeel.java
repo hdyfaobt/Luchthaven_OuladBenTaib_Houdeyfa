@@ -10,7 +10,7 @@ private String functie;
         this.functie = functie;
     }
 
-
+//get&set
     public String getFunctie() {
         return functie;
     }
@@ -18,7 +18,7 @@ private String functie;
     public void setFunctie(String functie) {
         this.functie = functie;
     }
-
+//override
     @Override
     public void toonDetails() {
         System.out.println("Personeel details: " + toString() + ", Functie: " + functie);

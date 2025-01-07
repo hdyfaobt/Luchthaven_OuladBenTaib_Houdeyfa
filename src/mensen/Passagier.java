@@ -10,6 +10,7 @@ public class Passagier extends Persoon{
         super(naam, leeftijd, adres);
     }
 
+    //attriubuts
     private String ticket;
     private double bagageGewicht;
 
@@ -20,6 +21,8 @@ public class Passagier extends Persoon{
         this.bagageGewicht = bagageGewicht;
     }
 
+
+    //get&set
     public String getTicket() {
         return ticket;
     }
@@ -36,6 +39,7 @@ public class Passagier extends Persoon{
         this.bagageGewicht = bagageGewicht;
     }
 
+    //override
     @Override
     public void toonDetails(){
         System.out.println("Info passagier: " + toString() + ", Ticket nummer " + ticket + ", BagageGewicht: " + bagageGewicht);
