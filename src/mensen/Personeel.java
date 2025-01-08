@@ -2,12 +2,14 @@ package mensen;
 import adres.Adres;
 
 public class Personeel extends Persoon{
-
+    private String ticket;
 private String functie;
 
-    public Personeel(String naam, int leeftijd, Adres adres, String functie) {
+    public Personeel(String naam, int leeftijd, Adres adres, String functie,String ticket) {
         super(naam, leeftijd, adres);
         this.functie = functie;
+        this.ticket = ticket;
+
     }
 
 //get&set

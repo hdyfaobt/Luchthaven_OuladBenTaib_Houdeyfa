@@ -95,34 +95,58 @@ public class Vliegtuig {
         if (passagier.getTicket().contains(vertrekLocatie) && passagier.getTicket().contains(aankomstLocatie)) {
             return true;
         }
-        System.out.println("Passagier heeft een verkeerd ticket! Gegeven ticket: " + passagier.getTicket());
+        System.out.println("NOT Passagier " + passagier.getNaam() + " heeft een verkeerd ticket! Gegeven ticket: " + passagier.getTicket());
         return false;
     }
 
     public boolean voegPassagierToe(Passagier passagier, String klasse) {
         if (!controleerTicket(passagier)) {
-            System.out.println("Passagier ticket is niet geldig");
+            System.out.println("NOT Passagier " + passagier.getNaam() + " ticket is niet geldig");
             return false;
         }
 
         if ("business".equalsIgnoreCase(klasse) && businessPlaatsen > 0) {
             passagiers.add(passagier);
             businessPlaatsen--;
-            System.out.println("Passagier " + passagier.getNaam() + " succesvol ingeschreven in " + klasse + " klasse.");
+            System.out.println("OK  Passagier " + passagier.getNaam() + " succesvol ingeschreven in " + klasse + " klasse.");
             return true;
         } else if ("economy".equalsIgnoreCase(klasse) && economyPlaatsen > 0) {
             passagiers.add(passagier);
             economyPlaatsen--;
-            System.out.println("Passagier " + passagier.getNaam() + " succesvol ingeschreven in " + klasse + " klasse.");
+            System.out.println("OK  Passagier " + passagier.getNaam() + " succesvol ingeschreven in " + klasse + " klasse.");
             return true;
         } else {
-            System.out.println("Geen beschikbare plaatsen in de " + klasse + " klasse.");
+            System.out.println("NOT Geen beschikbare plaatsen in de " + klasse + " klasse, voor passagier: " + passagier.getNaam());
             return false;
         }
     }
 
-    public void voegPersoneelToe(Personeel persoon) {
+    // Voeg personeel toe met limietcontrole
+    public boolean voegPersoneelToeMetLimiet(Personeel persoon, int maxAantalPerFunctie) {
+        long aantalMetFunctie = personeel.stream()
+                .filter(p -> p.getFunctie().equalsIgnoreCase(persoon.getFunctie()))
+                .count();
+
+        if (aantalMetFunctie >= maxAantalPerFunctie) {
+            System.out.println("FOUT: Het maximum aantal " + persoon.getFunctie() + "s (" + maxAantalPerFunctie + ") is al bereikt.");
+            return false;
+        }
+
         personeel.add(persoon);
+        System.out.println("OK: Persoon " + persoon.getNaam() + " toegevoegd als " + persoon.getFunctie());
+        return true;
+    }
+
+    // Methode om personeel te tonen
+    public void toonPersoneel() {
+        if (personeel.isEmpty()) {
+            System.out.println("Er is geen personeel toegewezen aan dit vliegtuig.");
+        } else {
+            System.out.println("Lijst van personeel:");
+            for (Personeel persoon : personeel) {
+                System.out.println("- " + persoon.getNaam() + " (" + persoon.getFunctie() + ")");
+            }
+        }
     }
 
     public boolean isKlaarVoorOpstijgen() {
@@ -150,4 +174,6 @@ public class Vliegtuig {
     public String toString() {
         return "Vliegtuig van " + vertrekLocatie + " naar " + aankomstLocatie + ", Business plaatsen: " + businessPlaatsen + ", Economy plaatsen: " + economyPlaatsen + ", Aantal passagiers: " + passagiers.size() + ", Aantal personeel: " + personeel.size();
     }
+
+
 }
