@@ -42,13 +42,13 @@ public class Main {
 
         };
 
-        // Maak Personeel
+        // Maak Personeel KIES UIT PILOOT,CO-PILOOT, STEWARD
         Personeel[] personeel = {
-                new Personeel("Jedo", 35, adresYana, "Piloot", "TNG-LON"),
-                new Personeel("Basidi", 40, adresYana, "Piloot", "TNG-LON"),
-                new Personeel("Rania", 20, adresRania, "Steward", "TNG-LON"),
+                new Personeel("Jedo", 35, adresYana, "PILOOT", "TNG-LON"),
+                new Personeel("Basidi", 40, adresYana, "Co-Piloot", "TNG-LON"),
+                new Personeel("Rania", 20, adresRania, "STEWARD", "TNG-LON"),
                 new Personeel("Sirine", 25, adresRania, "Steward", "TNG-LON"),
-                new Personeel("Leyssa", 27, adresRania, "Steward", "TNG-LON"),
+                new Personeel("Leyssa", 27, adresRania, "Steward", "TNG-RAK"),
                 new Personeel("Assia", 30, adresRania, "Steward", "TNG-LON")
         };
 
@@ -82,5 +82,13 @@ public class Main {
         for (Passagier passagier : vliegtuig.getPassagiers()) {
             System.out.println(passagier);
         }
+
+        // Toon details van het personeel
+        System.out.println("\n=== Personeel Details ===");
+        for (Personeel persoon : vliegtuig.getPersoneel()) {
+            System.out.println("Naam: " + persoon.getNaam() + ", Functie: " + persoon.getFunctie());
+        }
+
+
     }
 }

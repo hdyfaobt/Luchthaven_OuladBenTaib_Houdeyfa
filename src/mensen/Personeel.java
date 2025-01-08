@@ -13,6 +13,16 @@ private String functie;
     }
 
 //get&set
+
+
+    public String getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(String ticket) {
+        this.ticket = ticket;
+    }
+
     public String getFunctie() {
         return functie;
     }
@@ -20,9 +30,12 @@ private String functie;
     public void setFunctie(String functie) {
         this.functie = functie;
     }
-//override
+
+    //override
     @Override
     public void toonDetails() {
         System.out.println("Personeel details: " + toString() + ", Functie: " + functie);
     }
+
+
 }

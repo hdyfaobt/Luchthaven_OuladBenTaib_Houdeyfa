@@ -108,15 +108,15 @@ public class Vliegtuig {
         if ("business".equalsIgnoreCase(klasse) && businessPlaatsen > 0) {
             passagiers.add(passagier);
             businessPlaatsen--;
-            System.out.println("OK  Passagier " + passagier.getNaam() + " succesvol ingeschreven in " + klasse + " klasse.");
+            System.out.println("OK  Passagier " + passagier.getNaam() + " INGESCHREVEN IN " + klasse + " klasse.");
             return true;
         } else if ("economy".equalsIgnoreCase(klasse) && economyPlaatsen > 0) {
             passagiers.add(passagier);
             economyPlaatsen--;
-            System.out.println("OK  Passagier " + passagier.getNaam() + " succesvol ingeschreven in " + klasse + " klasse.");
+            System.out.println("OK  Passagier " + passagier.getNaam() + " INGESCHREVEN IN " + klasse + " klasse.");
             return true;
         } else {
-            System.out.println("NOT Geen beschikbare plaatsen in de " + klasse + " klasse, voor passagier: " + passagier.getNaam());
+            System.out.println("NOT Passagier "+ passagier.getNaam() + " NIET INGESCHREVEN IN " + klasse + " klasse, WANT geen plaats meer"   );
             return false;
         }
     }
@@ -129,6 +129,13 @@ public class Vliegtuig {
 
         if (aantalMetFunctie >= maxAantalPerFunctie) {
             System.out.println("FOUT: Het maximum aantal " + persoon.getFunctie() + "s (" + maxAantalPerFunctie + ") is al bereikt.");
+            return false;
+        }
+
+        // Controleer of het personeel is toegewezen aan de juiste vlucht
+        String toegewezenVlucht = vertrekLocatie + "-" + aankomstLocatie;
+        if (!persoon.getTicket().equalsIgnoreCase(toegewezenVlucht)) {
+            System.out.println("FOUT: Personeel " + persoon.getNaam() + " is niet toegewezen aan deze vlucht maar aan vlucht (" + toegewezenVlucht + ").");
             return false;
         }
 
@@ -160,6 +167,11 @@ public class Vliegtuig {
             System.out.println("Er is geen piloot aanwezig.");
             return false;
         }
+        boolean heeftCoPiloot = personeel.stream().anyMatch(p -> p.getFunctie().equalsIgnoreCase("Co-Piloot"));
+        if (!heeftCoPiloot) {
+            System.out.println("Er is geen co-piloot aanwezig.");
+            return false;
+        }
 
         if (!flightChecks) {
             System.out.println("Flightchecks zijn niet in orde.");
@@ -174,6 +186,4 @@ public class Vliegtuig {
     public String toString() {
         return "Vliegtuig van " + vertrekLocatie + " naar " + aankomstLocatie + ", Business plaatsen: " + businessPlaatsen + ", Economy plaatsen: " + economyPlaatsen + ", Aantal passagiers: " + passagiers.size() + ", Aantal personeel: " + personeel.size();
     }
-
-
 }
